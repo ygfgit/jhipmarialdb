@@ -1,0 +1,16 @@
+version: '2'
+services:
+  jhipmarialdb-app:
+    image: jhipmarialdb
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://jhipmarialdb-mariadb:3306/jhipmarialdb?useLegacyDatetimeCode=false&serverTimezone=UTC
+      - JHIPSTER_SLEEP=120 # gives time for mariadb server to start
+    ports:
+      - 8080:8080
+  jhipmarialdb-mariadb:
+    extends:
+      file: mariadb.yml
+      service: jhipmarialdb-mariadb
